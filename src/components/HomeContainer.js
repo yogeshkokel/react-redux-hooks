@@ -4,14 +4,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser, addUser } from '../store/users/userActions';
 //import components from react bootstrap
 import { Card, ListGroup, Spinner, Alert, Form, Button } from 'react-bootstrap';
+//import customHooks
+import useDocTitle from '../customHooks/useDocTitle';
 
 function HomeContainer(props) {
     //Define (local state) name and function using useState
     const [name, setName] = useState('');
+
     //Select whole user Object from user store
     const users = useSelector(state => state.user);
+    
     //define dispatch function using useDispatch()
     const dispatch = useDispatch()
+
+     //call customHooks and pass your value
+     useDocTitle('This is home page');
+    
     //useEffect is called when compoent is mounted or compoenet is updated
     useEffect(() => {
         dispatch(fetchUser())
