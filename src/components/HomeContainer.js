@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+//import actions from user actions
 import { fetchUser, addUser } from '../store/users/userActions';
+//import components from react bootstrap
 import { Card, ListGroup, Spinner, Alert, Form, Button } from 'react-bootstrap';
 
 function HomeContainer(props) {
+    //Define (local state) name and function using useState
     const [name, setName] = useState('');
-
+    //Select whole user Object from user store
     const users = useSelector(state => state.user);
-
+    //define dispatch function using useDispatch()
     const dispatch = useDispatch()
+    //useEffect is called when compoent is mounted or compoenet is updated
     useEffect(() => {
         dispatch(fetchUser())
+        //adding [] calls useEffect only ones
     }, [])
-
+    
     const handleSubmit = (e) => {
+        //handle form submit
         e.preventDefault();
+        //dispatch add user action and pass user input name from useState
         dispatch(addUser(name));
+        //call setName function to set value to empty
         setName('');
     }
 

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+//import store
 import store from './store/index';
-
-import Header from './components/partials/Header';
+// import router
 import Router from './Router';
+//import compoents
+import Header from './components/partials/Header';
 //CSS Imports
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

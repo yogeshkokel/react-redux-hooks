@@ -1,12 +1,14 @@
 import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR, ADD_USER } from './userTypes';
 import axios from 'axios';
 
+//Loading action to set flag true/false
 const fetchUserRequest = () => {
     return {
         type: FETCH_USER,
     }
 }
 
+//action called after user success response
 const fetchUserSuccess = (users) => {
     return {
         type: FETCH_USER_SUCCESS,
@@ -14,6 +16,7 @@ const fetchUserSuccess = (users) => {
     }
 }
 
+//action called when there is an error response
 const fetchUserError = (err) => {
     return {
         type: FETCH_USER_ERROR,
@@ -21,6 +24,7 @@ const fetchUserError = (err) => {
     }
 }
 
+//action called when single user is added
 const addSingleUser = (user) => {
     return {
         type: ADD_USER,
@@ -28,26 +32,33 @@ const addSingleUser = (user) => {
     }
 }
 
+//async function to fetch user using axios
 export const fetchUser = () => {
     return function (dispatch) {
+        //dispatch loading action
         dispatch(fetchUserRequest())
         axios.get('https://jsonplaceholder.typicode.com/users')
             .then((response) => {
                 const { data } = response;
+                //dispatch success response
                 dispatch(fetchUserSuccess(data))
             }).catch((err) => {
+                //dispatch error response
                 dispatch(fetchUserError(err.message))
             });
     }
 }
 
+//async function to post username
 export const addUser = (name) => {
     return function (dispatch) {
         axios.post('https://jsonplaceholder.typicode.com/users', { name: name })
             .then((response) => {
                 const { data } = response;
+                //dispatch add response
                 dispatch(addSingleUser(data))
             }).catch((err) => {
+                //dispatch error response
                 dispatch(fetchUserError(err.message))
             });
     }
