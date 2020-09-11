@@ -1,5 +1,5 @@
 import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR, ADD_USER } from './userTypes';
-import axios from 'axios';
+import UserService from '../../ApiServices/UserService';
 
 //Loading action to set flag true/false
 const fetchUserRequest = () => {
@@ -37,7 +37,7 @@ export const fetchUser = () => {
     return function (dispatch) {
         //dispatch loading action
         dispatch(fetchUserRequest())
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        UserService.GetUsers()
             .then((response) => {
                 const { data } = response;
                 //dispatch success response
@@ -52,7 +52,7 @@ export const fetchUser = () => {
 //async function to post username
 export const addUser = (name) => {
     return function (dispatch) {
-        axios.post('https://jsonplaceholder.typicode.com/users', { name: name })
+        UserService.AddUser({ name: name })
             .then((response) => {
                 const { data } = response;
                 //dispatch add response
