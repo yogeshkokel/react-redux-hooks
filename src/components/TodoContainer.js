@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import useDocTitle from '../customHooks/useDocTitle';
 import useInput from '../customHooks/useInput';
 import { withNamespaces } from 'react-i18next';
+import Slider from "react-slick";
+
 function TodoContainer({ t }) {
     //initalValue is set here
 
@@ -72,6 +74,14 @@ function TodoContainer({ t }) {
         todos[index].isEditTable = false;
         setTodos(todos);
     }
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
     return (
         <div>
             <h4> {t('Your Current Date')} : {`${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`}</h4>
@@ -84,6 +94,29 @@ function TodoContainer({ t }) {
                 }
                 {/* TodoForm for input */}
                 <TodoForm addTodo={addTodo} />
+            </div>
+            <div>
+                <h2>Slick Slider</h2>
+                <Slider {...settings}>
+                    <div>
+                        <h3>1</h3>
+                    </div>
+                    <div>
+                        <h3>2</h3>
+                    </div>
+                    <div>
+                        <h3>3</h3>
+                    </div>
+                    <div>
+                        <h3>4</h3>
+                    </div>
+                    <div>
+                        <h3>5</h3>
+                    </div>
+                    <div>
+                        <h3>6</h3>
+                    </div>
+                </Slider>
             </div>
         </div>
     );

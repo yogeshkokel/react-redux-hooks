@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 //import actions from user actions
 import { fetchUser, addUser } from '../store/users/userActions';
 //import components from react bootstrap
-import { Card, ListGroup, Spinner, Alert, Form, Button } from 'react-bootstrap';
+import { Card, ListGroup, Spinner, Alert, Form, Button, Modal } from 'react-bootstrap';
 //import customHooks
 import useDocTitle from '../customHooks/useDocTitle';
 // the hoc
@@ -13,6 +13,8 @@ import { withNamespaces } from 'react-i18next';
 function HomeContainer({ t }) {
     //Define (local state) name and function using useState
     const [name, setName] = useState('');
+    const [show, setShow] = useState(false);
+    const [userDetail, setUserDetail] = useState({});
 
     //Select whole user Object from user store
     const users = useSelector(state => state.user);
@@ -38,6 +40,12 @@ function HomeContainer({ t }) {
         setName('');
     }
 
+    const handleOpen = (user) => {
+        setUserDetail(user);
+        setShow(true);
+    }
+    const handleClose = () => setShow(false);
+
     return (
         <div>
             <h1>{t('Welcome to React')}</h1>
@@ -53,11 +61,39 @@ function HomeContainer({ t }) {
                         : <Card>
                             <ListGroup variant="flush">
                                 {users.data.map((user, index) => (
-                                    <ListGroup.Item key={index}>{user.name}</ListGroup.Item>
+                                    <>
+                                        <ListGroup.Item key={index}>{user.name}
+                                            <Button size="sm" onClick={() => handleOpen(user)}>View Detail</Button>
+                                        </ListGroup.Item>
+                                    </>
                                 ))}
                             </ListGroup>
                         </Card>
             }
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{userDetail.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ul>
+                        <li>
+                            Email: {userDetail.email}
+                        </li>
+                        <li>
+                            Phone Number: {userDetail.phone}
+                        </li>
+                        <li>
+                            Website: {userDetail.website}
+                        </li>
+                    </ul>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+          </Button>
+                </Modal.Footer>
+            </Modal>
 
             <h4>Submit Form</h4>
             <Form onSubmit={(e) => handleSubmit(e)}>
