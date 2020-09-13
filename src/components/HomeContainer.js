@@ -6,26 +6,29 @@ import { fetchUser, addUser } from '../store/users/userActions';
 import { Card, ListGroup, Spinner, Alert, Form, Button } from 'react-bootstrap';
 //import customHooks
 import useDocTitle from '../customHooks/useDocTitle';
+// the hoc
+import { withNamespaces } from 'react-i18next';
 
-function HomeContainer(props) {
+
+function HomeContainer({ t }) {
     //Define (local state) name and function using useState
     const [name, setName] = useState('');
 
     //Select whole user Object from user store
     const users = useSelector(state => state.user);
-    
+
     //define dispatch function using useDispatch()
     const dispatch = useDispatch()
 
-     //call customHooks and pass your value
-     useDocTitle('This is home page');
-    
+    //call customHooks and pass your value
+    useDocTitle('This is home page');
+
     //useEffect is called when compoent is mounted or compoenet is updated
     useEffect(() => {
         dispatch(fetchUser())
         //adding [] calls useEffect only ones
     }, [])
-    
+
     const handleSubmit = (e) => {
         //handle form submit
         e.preventDefault();
@@ -37,6 +40,7 @@ function HomeContainer(props) {
 
     return (
         <div>
+            <h1>{t('Welcome to React')}</h1>
             {
                 users.loading ?
                     <Spinner animation="border" role="status">
@@ -70,4 +74,4 @@ function HomeContainer(props) {
     );
 }
 
-export default HomeContainer;
+export default withNamespaces()(HomeContainer);

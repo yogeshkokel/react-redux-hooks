@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import store from './store/index';
 // import router
 import Router from './Router';
+//import i18n
+import './plugins/i18n';
 //import compoents
 import Header from './components/partials/Header';
 //CSS Imports

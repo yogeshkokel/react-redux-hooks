@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 //import customHooks
 import useDocTitle from '../customHooks/useDocTitle';
 import useInput from '../customHooks/useInput';
-
-function TodoContainer(props) {
+import { withNamespaces } from 'react-i18next';
+function TodoContainer({ t }) {
     //initalValue is set here
+
     const [todos, setTodos] = useState([
         {
             title: "Learn React Hooks",
@@ -73,7 +74,7 @@ function TodoContainer(props) {
     }
     return (
         <div>
-            <h4> Your Current Date: {`${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`}</h4>
+            <h4> {t('Your Current Date')} : {`${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`}</h4>
             <div className="todo-list">
                 {
                     todos.map((x, index) => (
@@ -90,13 +91,13 @@ function TodoContainer(props) {
 
 function Todo({ todo, index, onComplete, removeTodo, onEditTodo, onSaveTodo }) {
     const [newTitle, setTitle] = useState(todo.title);
-
     return (
         //Dynamic styling
         <div style={{ textDecoration: todo.isCompleted ? 'line-through' : '' }} className="todo">
             {
                 !todo.isEditTable
                     ?
+
                     <span>{todo.title}</span>
                     :
                     <input type="text" value={newTitle} onChange={(e) => { setTitle(e.target.value) }} />
@@ -148,4 +149,4 @@ function TodoForm({ addTodo }) {
         </div>
     )
 }
-export default TodoContainer;
+export default withNamespaces()(TodoContainer);
