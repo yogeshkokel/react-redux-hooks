@@ -1,10 +1,11 @@
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR, ADD_USER } from './userTypes';
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR, ADD_USER, GET_USER_DETAILS } from './userTypes';
 
 //initial state of user
 const initialState = {
     loading: false,
     data: [],
-    error: null
+    error: null,
+    singleUserData: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -34,6 +35,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 loading: false,
                 data: [...state.data, action.payload],
+            }
+        case GET_USER_DETAILS:
+            return {
+                ...state,
+                singleUserData: action.payload
             }
         default: return state
     }

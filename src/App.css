@@ -57,6 +57,14 @@
   justify-content: space-between;
 }
 
-.pb-10{
+.pb-10 {
   padding-bottom: 10px;
+}
+
+.route-wrapper {
+  position: relative;
+}
+
+.route-wrapper>div {
+  /* position: absolute; */
 }

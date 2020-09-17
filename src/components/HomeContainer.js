@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'
 //import actions from user actions
 import { fetchUser, addUser } from '../store/users/userActions';
 //import components from react bootstrap
@@ -61,11 +62,15 @@ function HomeContainer({ t }) {
                         : <Card>
                             <ListGroup variant="flush">
                                 {users.data.map((user, index) => (
-                                    <>
-                                        <ListGroup.Item key={index}>{user.name}
+                                    <div key={index}>
+                                        <ListGroup.Item>{user.name}
                                             <Button size="sm" onClick={() => handleOpen(user)}>View Detail</Button>
+                                            <Link to={{
+                                                pathname: '/user/' + user.id,
+                                                user_id: user.id
+                                            }}>User Page</Link>
                                         </ListGroup.Item>
-                                    </>
+                                    </div>
                                 ))}
                             </ListGroup>
                         </Card>

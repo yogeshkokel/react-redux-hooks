@@ -6,5 +6,8 @@ export default {
     },
     AddUser(payload) {
         return Api().post(`users`, payload)
+    },
+    GetSingleUserDetails(payload) {
+        return Api().get(`users/${payload.user_id}`)
     }
 }
