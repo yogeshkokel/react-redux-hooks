@@ -5,7 +5,18 @@ import i18n from '../../plugins/i18n';
 import { withNamespaces } from 'react-i18next';
 import { useCookies } from 'react-cookie';
 function Header({ t }) {
+
     const changeLanguage = (lng) => {
+        let stylesSheets = document.styleSheets;
+        let lastStyleSheet = document.styleSheets[stylesSheets.length - 1];
+        if (lng === "ar") {
+            require('../../arabic.css');
+            lastStyleSheet.disabled = false;
+            document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
+        } else {
+            lastStyleSheet.disabled = true;
+            document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
+        }
         i18n.changeLanguage(lng);
     }
 
@@ -19,6 +30,10 @@ function Header({ t }) {
                 <Nav.Item >
                     <Nav.Link eventKey="link-2" as={Link} to="/todos">Todos</Nav.Link>
                 </Nav.Item>
+                <div className="d-flex div-right">
+                    <div onClick={() => changeLanguage('en')}>EN</div>|
+                    <div onClick={() => changeLanguage('ar')}>AR</div>
+                </div>
             </Nav>
             {
                 cookies.tokenName

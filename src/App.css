@@ -68,3 +68,8 @@
 .route-wrapper>div {
   /* position: absolute; */
 }
+
+.div-right{
+  position: absolute;
+  right: 10px;
+}
