@@ -74,7 +74,6 @@ function UserContainer(props) {
                             guides={true}
                             ref={imageRef}
                             dragMode={'move'}
-                            guides={false}
                             onInitialized={(instance) => {
                                 setCropper(instance);
                             }}
@@ -90,7 +89,7 @@ function UserContainer(props) {
                                     Crop Image
                         </button>
                             </h1>
-                            <img style={{ width: '100%' }} src={cropData} alt="cropped image" />
+                            <img style={{ width: '100%' }} src={cropData} alt="cropped" />
                         </div>
                     </div>
 

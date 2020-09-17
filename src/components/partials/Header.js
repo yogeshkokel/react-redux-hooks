@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import { Nav } from 'react-bootstrap';
 import i18n from '../../plugins/i18n';
 import { withNamespaces } from 'react-i18next';
-
+import { useCookies } from 'react-cookie';
 function Header({ t }) {
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     }
 
+    const [cookies, setCookie, removeCookie] = useCookies();
     return (
         <div>
             <Nav variant="pills" className="justify-content-center" defaultActiveKey="link-1">
@@ -19,6 +20,13 @@ function Header({ t }) {
                     <Nav.Link eventKey="link-2" as={Link} to="/todos">Todos</Nav.Link>
                 </Nav.Item>
             </Nav>
+            {
+                cookies.tokenName
+                    ?
+                    <div onClick={() => removeCookie('tokenName')} className="text-center">Logout remove cookie</div>
+                    :
+                    <div onClick={() => setCookie('tokenName', 'someValue')} className="text-center">Login with cookie</div>
+            }
             <div className="text-center mt-2">
                 <button onClick={() => changeLanguage('en')}>English</button>
                 <button onClick={() => changeLanguage('es')}>Spanish</button>
