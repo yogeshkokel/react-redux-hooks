@@ -24,6 +24,7 @@
     "react-router-transition": "^2.0.0",
     "react-scripts": "3.4.1",
     "react-slick": "^0.27.11",
+    "react-social-login": "^3.4.9",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",

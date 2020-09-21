@@ -4,6 +4,7 @@ import { Nav } from 'react-bootstrap';
 import i18n from '../../plugins/i18n';
 import { withNamespaces } from 'react-i18next';
 import { useCookies } from 'react-cookie';
+import SocialButton from '../../customComponents/SocialLogin';
 function Header({ t }) {
 
     const changeLanguage = (lng) => {
@@ -18,6 +19,17 @@ function Header({ t }) {
             document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
         }
         i18n.changeLanguage(lng);
+    }
+
+    const handleSocialLogin = (user) => {
+        console.log(user);
+        const profile = user._profile;
+        const token = user._token;
+        alert('Email ' + profile.email + '>>><<<' + ' Token ' + token.accessToken)
+    }
+
+    const handleSocialLoginFailure = (err) => {
+        console.error(err)
     }
 
     const [cookies, setCookie, removeCookie] = useCookies();
@@ -42,6 +54,21 @@ function Header({ t }) {
                     :
                     <div onClick={() => setCookie('tokenName', 'someValue')} className="text-center">Login with cookie</div>
             }
+            <div className="text-center mt-2">
+                <SocialButton
+                    provider='facebook'
+                    appId='2636075626643515'
+                    onLoginSuccess={handleSocialLogin}
+                    onLoginFailure={handleSocialLoginFailure}
+                >Facebook Login</SocialButton>
+                <br />
+                <SocialButton
+                    provider='google'
+                    appId='193276772057-nrtg06dne8ulsbvdtqma43e2v7itdunt.apps.googleusercontent.com'
+                    onLoginSuccess={handleSocialLogin}
+                    onLoginFailure={handleSocialLoginFailure}
+                >Google Login</SocialButton>
+            </div>
             <div className="text-center mt-2">
                 <button onClick={() => changeLanguage('en')}>English</button>
                 <button onClick={() => changeLanguage('es')}>Spanish</button>
